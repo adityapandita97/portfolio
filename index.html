@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aditya Pandita - Solutions Architect @ AWS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #FF9900;
+            --secondary-color: #232F3E;
+            --accent-color: #146EB4;
+            --text-color: #232F3E;
+            --light-bg: #F9F9F9;
+            --white: #FFFFFF;
+            --gray: #666666;
+            --light-gray: #E5E5E5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 20px;
+        }
+
+        .nav-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--accent-color) 100%);
+            color: var(--white);
+            padding: 150px 0 100px;
+            margin-top: 60px;
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            animation: fadeInUp 1s ease 0.2s backwards;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease 0.4s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #E88B00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 153, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.8s backwards;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--secondary-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 1rem auto;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--light-bg);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--gray);
+        }
+
+        .about-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .highlight-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .highlight-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-item p {
+            color: var(--gray);
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .skill-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .skill-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .skill-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+
+        /* Projects Section */
+        .projects {
+            background: var(--light-bg);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .project-header h3 {
+            font-size: 1.3rem;
+            color: var(--secondary-color);
+            flex: 1;
+        }
+
+        .project-tag {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project-card p {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-tech span {
+            background: var(--light-bg);
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .project-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .project-link:hover {
+            color: var(--primary-color);
+        }
+
+        /* Certifications Section */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .cert-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .cert-card i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .cert-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary-color);
+        }
+
+        .cert-card p {
+            color: var(--gray);
+        }
+
+        .achievements {
+            background: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .achievements h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary-color);
+            text-align: center;
+        }
+
+        .achievements ul {
+            list-style: none;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .achievements li {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: var(--white);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .achievements i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--light-bg);
+        }
+
+        .contact-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-item i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+
+        .contact-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-color);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 60px;
+                flex-direction: column;
+                background: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.05);
+                padding: 2rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .projects-grid,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .about-highlights {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">Aditya Pandita</div>
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Aditya Pandita</h1>
+                <h2 class="hero-subtitle">AWS Solutions Architect | Serverless & AI/ML Expert</h2>
+                <p class="hero-description">7+ years architecting cloud solutions | $5M+ revenue impact | Subject Matter Expert in AWS Lambda & API Gateway</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Get In Touch</a>
+                    <a href="#projects" class="btn btn-secondary">View Projects</a>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/adityapandita97/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="mailto:adityapandita97@gmail.com"><i class="fas fa-envelope"></i></a>
+                    <a href="https://github.com/adityapandita97" target="_blank"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Results-driven Solutions Architect at AWS with over 7 years of experience leveraging AWS technologies to deliver exceptional customer support and solutions. Currently pursuing an MBA from Indian Institute of Management, Kozhikode (IIMK) & UWA.</p>
+                    <p>I specialize in architecting enterprise-grade cloud solutions for government and public sector organizations, with expertise in serverless architectures, AI/ML technologies, and security compliance frameworks.</p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <h3>$5M+</h3>
+                            <p>Annual Revenue Generated</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h3>10+</h3>
+                            <p>Government Ministries & PSUs</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h3>5M+</h3>
+                            <p>Smart Meters Managed</p>
+                        </div>
+                        <div class="highlight-item">
+                            <h3>42%</h3>
+                            <p>Cost Reduction Achieved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <i class="fas fa-cloud"></i>
+                    <h3>Cloud Architecture</h3>
+                    <p>AWS Expert | Multi-cloud solution design | Infrastructure as Code with CloudFormation</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-server"></i>
+                    <h3>Serverless (SME)</h3>
+                    <p>AWS Lambda | API Gateway | Step Functions | EventBridge | AppSync</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-brain"></i>
+                    <h3>AI/ML & GenAI</h3>
+                    <p>Amazon Bedrock | SageMaker | Rekognition | Q Developer | MLOps</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Security & Compliance</h3>
+                    <p>IAM | WAF | Security Hub | GuardDuty | MeitY | FedRAMP | ISO 27001</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-database"></i>
+                    <h3>Database & Analytics</h3>
+                    <p>RDS | Redshift | Athena | Kinesis | QuickSight | Data Lakes</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>Networking</h3>
+                    <p>VPC | Load Balancing | Route 53 | CloudFront | Direct Connect</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-code"></i>
+                    <h3>DevOps & Programming</h3>
+                    <p>Python (Boto3) | Bash | REST API | CI/CD | AWS CLI</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Migration & Modernization</h3>
+                    <p>Application Migration Service | DMS | DataSync | Well-Architected Framework</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>PGCIL Smart Metering Infrastructure</h3>
+                        <span class="project-tag">Enterprise Solution</span>
+                    </div>
+                    <p>Architected cloud solution for 5+ million smart meters across PAN India, achieving 42% cost reduction through optimized AWS service selection and right-sizing strategies.</p>
+                    <div class="project-tech">
+                        <span>AWS IoT</span>
+                        <span>Lambda</span>
+                        <span>S3</span>
+                        <span>CloudFormation</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>IPv6 Smart Meters Migration Solution</h3>
+                        <span class="project-tag">Published</span>
+                    </div>
+                    <p>Developed global IPv6 Smart Meters Migration solution published on AWS Industries Blog, providing NAT proxy architecture for AMI/SPs transitioning to cloud infrastructure.</p>
+                    <div class="project-tech">
+                        <span>IPv6</span>
+                        <span>NAT Gateway</span>
+                        <span>VPC</span>
+                        <span>IoT Core</span>
+                    </div>
+                    <a href="https://aws.amazon.com/blogs/industries/ipv6-smart-meter-migration-to-aws-a-nat-proxy-solution-for-amisps/" target="_blank" class="project-link">View Article <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Grid Intelligence Platform</h3>
+                        <span class="project-tag">AI-Powered</span>
+                    </div>
+                    <p>Integrated platform combining Amazon QuickSight with Amazon Bedrock Agents for intelligent grid operations, delivering self-service analytics and AI-powered consumption analysis.</p>
+                    <div class="project-tech">
+                        <span>Amazon Bedrock</span>
+                        <span>QuickSight</span>
+                        <span>Redshift</span>
+                        <span>Lambda</span>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>PMSG 2.0 Portal</h3>
+                        <span class="project-tag">Government</span>
+                    </div>
+                    <p>Architected Ministry of New and Renewable Energy's PM Surya Ghar platform with comprehensive security frameworks including AWS WAF, Network Firewall, Security Hub, and GuardDuty.</p>
+                    <div class="project-tech">
+                        <span>WAF</span>
+                        <span>Network Firewall</span>
+                        <span>Security Hub</span>
+                        <span>GuardDuty</span>
+                    </div>
+                    <a href="https://pmsuryaghar.gov.in/" target="_blank" class="project-link">View Portal <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>Image Insight Application</h3>
+                        <span class="project-tag">Serverless</span>
+                    </div>
+                    <p>Created serverless application leveraging Amazon Rekognition and Amazon Bedrock for automated image analysis and description generation. Featured on AWS Serverless Land.</p>
+                    <div class="project-tech">
+                        <span>Rekognition</span>
+                        <span>Bedrock</span>
+                        <span>Lambda</span>
+                        <span>Python</span>
+                    </div>
+                    <a href="https://serverlessland.com/repos/image-insight-nodejs" target="_blank" class="project-link">View on Serverless Land <i class="fas fa-external-link-alt"></i></a>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>NRL VMware Migration</h3>
+                        <span class="project-tag">Migration</span>
+                    </div>
+                    <p>Led large-scale Infrastructure Event Management (IEM) initiative for Numaligarh Refinery Ltd's VMware workload migration to AWS, working with implementation partners.</p>
+                    <div class="project-tech">
+                        <span>Application Migration Service</span>
+                        <span>EC2</span>
+                        <span>EBS</span>
+                        <span>VPC</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" class="certifications">
+        <div class="container">
+            <h2 class="section-title">Certifications & Achievements</h2>
+            <div class="cert-grid">
+                <div class="cert-card">
+                    <i class="fab fa-aws"></i>
+                    <h3>AWS Certified Solutions Architect</h3>
+                    <p>Professional</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fab fa-aws"></i>
+                    <h3>AWS Certified Solutions Architect</h3>
+                    <p>Associate</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fab fa-aws"></i>
+                    <h3>AWS Certified Developer</h3>
+                    <p>Associate</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-star"></i>
+                    <h3>AWS Subject Matter Expert</h3>
+                    <p>Lambda & API Gateway</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-robot"></i>
+                    <h3>AWS GenAI Certified</h3>
+                    <p>Technical</p>
+                </div>
+                <div class="cert-card">
+                    <i class="fas fa-award"></i>
+                    <h3>AWS Well-Architected</h3>
+                    <p>Proficient</p>
+                </div>
+            </div>
+            <div class="achievements">
+                <h3>Awards & Recognition</h3>
+                <ul>
+                    <li><i class="fas fa-trophy"></i> "All Rounder" Award - 2 consecutive quarters at AWS</li>
+                    <li><i class="fas fa-trophy"></i> Rising Star Award at AWS</li>
+                    <li><i class="fas fa-trophy"></i> Bolster Award at AWS</li>
+                    <li><i class="fas fa-medal"></i> AWS TFC Gold Member - Serverless & GenAI/ML Communities</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <p>I'm always interested in discussing cloud architecture, serverless solutions, and AI/ML implementations. Feel free to reach out!</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:adityapandita97@gmail.com">adityapandita97@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+919149609140">+91 9149609140</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/adityapandita97/" target="_blank">linkedin.com/in/adityapandita97</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Aditya Pandita. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/adityapandita97/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="mailto:adityapandita97@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/adityapandita97" target="_blank"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger
