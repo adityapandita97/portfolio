@@ -1,2 +1,11 @@
-# portfolio
-This is the portfolio of Aditya, who is a Senior Solutions Architect.
+Senior AWS Solutions Architect with 7+ years driving cloud transformation for Fortune 500 enterprises and government organizations across India and globally.
+
+Successfully architected cloud solutions generating $4+ million annual revenue, including PGCIL's smart metering infrastructure serving 5+ million meters across PAN India with 42% cost reduction. Expert in designing scalable, fault-tolerant systems for critical government portals including Ministry of New and Renewable Energy's analytics platform and PMSG portal security infrastructure. Proven track record managing complex client relationships as Subject Matter Expert for AWS Cloud Infrastructure, AWS Lambda and API Gateway services.
+
+Led large-scale Infrastructure Event Management initiatives, technical trainings, and mentoring. Strong expertise in serverless computing, microservices, cloud security, AWS services, Python, and containers. Successfully transitioned government agencies to cloud-native solutions while leading AWS Technical Field Communities in Serverless and Generative AI & Machine Learning specializations.
+
+Key Specializations: Multi-Cloud Architectures(AWS, Azure, GCP & OCI), Artificial Intelligence (AI & GENAI), Machine Learning (Deploying & Training LLM's, MLOps, ML based Solutions), Cloud Security, AI/ML, Advanced Analytics & BI, Serverless Computing (API Gateway & Lambda SME), Microservices Architecture, Infrastructure as Code (CDK, CloudFormation, Terraform), Container Orchestration (Docker & Kubernetes), DevOps & CI/CD, System Design & Performance Optimization, RESTful API Development, Government & Enterprise Solutions, IEM, Technical Leadership & Mentoring, Product & Service Team Support & Escalation Management, Cross-Functional Collaboration, Vendor Relationship Management, Core Networking & End-to-End Cloud Deployments.
+
+Notable Clients/Partners: PGCIL, MNRE, PMSG Portal, Bureau of Energy & Efficiency, DGH, RECL, NBFC, Nurmaligarh Refinery Ltd, GRID India, Polaris-Intellismart (ISVs), EPFO, GSTN, Accenture, Deloitte, PwC, CMS, CT, Bosting Consulting Group (BCG) and Fortune 500 enterprises requiring mission-critical cloud infrastructure.
+
+Passionate about continuous learning and adapting to emerging technologies while delivering impactful solutions that drive organizational growth and operational efficiency.
